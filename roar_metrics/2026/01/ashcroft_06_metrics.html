@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ashcroft: Metrics</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Inter', Arial, sans-serif; padding: 24px; max-width: 800px; margin: 0 auto; background: #fff; color: #1a1a1a; }
+  .footer { font-size: 10px; color: #B4B2A9; display: flex; justify-content: space-between; margin-top: 16px; }
+  .section { margin-bottom: 2rem; }
+  .section-title { font-size: 14px; font-weight: 700; color: #1a1a1a; margin: 0 0 3px; }
+  .section-sub { font-size: 12px; color: #666; margin: 0 0 8px; }
+  .insight { font-size: 12px; color: #666; margin: 8px 0 0; padding: 8px 12px; background: #f9f9f7; border-radius: 4px; border-left: 3px solid #ddd; line-height: 1.6; }
+  .legend { display: flex; flex-wrap: wrap; gap: 12px; margin: 6px 0 10px; font-size: 11px; color: #666; }
+  .legend span { display: flex; align-items: center; gap: 4px; }
+  .swatch { width: 10px; height: 10px; display: inline-block; flex-shrink: 0; }
+</style>
+</head>
+<body>
+<p style="font-size:20px;font-weight:700;margin:0 0 4px;">Strong foundations, but the next step requires more from each possession</p>
+<p style="font-size:13px;color:#666;margin:0 0 24px;">Key metrics by season, 2023 to 2026</p>
+
+<div class="section">
+  <div class="section-title">How hard does he compete for the ball?</div>
+  <div class="section-sub">Contested possession rate — % of disposals won in contested situations</div>
+  <div class="legend">
+    <span><span class="swatch" style="background:#D85A30;"></span>Will Ashcroft</span>
+    <span><span class="swatch" style="background:#1A6FBF44;border:1px solid #1A6FBF;"></span>Nick Daicos</span>
+    <span><span class="swatch" style="background:#0E7C6144;border:1px solid #0E7C61;"></span>Finn Callaghan</span>
+    <span><span class="swatch" style="background:#6B4EAE44;border:1px solid #6B4EAE;"></span>Harry Sheezel</span>
+    <span><span class="swatch" style="background:#B8660A44;border:1px solid #B8660A;"></span>Jason Horne-Francis</span>
+  </div>
+  <div style="position:relative;width:100%;height:200px;"><canvas id="m1"></canvas></div>
+  <p class="insight">Ashcroft's contested rate of 37% is solid and improving. Horne-Francis wins significantly more contested ball but with lower disposal efficiency. Ashcroft competes hard but hasn't yet reached Daicos's elite 2024 level of 43%.</p>
+</div>
+
+<div class="section">
+  <div class="section-title">Is he winning the ball out of stoppages?</div>
+  <div class="section-sub">Clearances per game — winning the ball directly from a stoppage and clearing it</div>
+  <div class="legend">
+    <span><span class="swatch" style="background:#D85A30;"></span>Will Ashcroft</span>
+    <span><span class="swatch" style="background:#1A6FBF44;border:1px solid #1A6FBF;"></span>Nick Daicos</span>
+    <span><span class="swatch" style="background:#0E7C6144;border:1px solid #0E7C61;"></span>Finn Callaghan</span>
+    <span><span class="swatch" style="background:#6B4EAE44;border:1px solid #6B4EAE;"></span>Harry Sheezel</span>
+    <span><span class="swatch" style="background:#B8660A44;border:1px solid #B8660A;"></span>Jason Horne-Francis</span>
+  </div>
+  <div style="position:relative;width:100%;height:200px;"><canvas id="m2"></canvas></div>
+  <p class="insight">Ashcroft's clearances jumped from 3.5 in 2023 to 5.5 in 2025, a meaningful step up that now matches Daicos's 2023 level. This is a genuinely positive trend in his development.</p>
+</div>
+
+<div class="section">
+  <div class="section-title">Is he converting possessions into scoring opportunities?</div>
+  <div class="section-sub">Score involvements per disposal — % of disposals that lead to a score for his team</div>
+  <div class="legend">
+    <span><span class="swatch" style="background:#D85A30;"></span>Will Ashcroft</span>
+    <span><span class="swatch" style="background:#1A6FBF44;border:1px solid #1A6FBF;"></span>Nick Daicos</span>
+    <span><span class="swatch" style="background:#0E7C6144;border:1px solid #0E7C61;"></span>Finn Callaghan</span>
+    <span><span class="swatch" style="background:#6B4EAE44;border:1px solid #6B4EAE;"></span>Harry Sheezel</span>
+    <span><span class="swatch" style="background:#B8660A44;border:1px solid #B8660A;"></span>Jason Horne-Francis</span>
+  </div>
+  <div style="position:relative;width:100%;height:200px;"><canvas id="m3"></canvas></div>
+  <p class="insight">At 23% in 2025, Ashcroft converts the lowest proportion of his disposals into scoring opportunities among the peer group. Daicos converts 26% and Horne-Francis 34%. He gets the ball regularly but needs to do more with it in forward half situations.</p>
+</div>
+
+<div class="section">
+  <div class="section-title">How far is he moving the ball when he gets it?</div>
+  <div class="section-sub">Metres gained per disposal — average metres the ball travels forward with each possession</div>
+  <div class="legend">
+    <span><span class="swatch" style="background:#D85A30;"></span>Will Ashcroft</span>
+    <span><span class="swatch" style="background:#1A6FBF44;border:1px solid #1A6FBF;"></span>Nick Daicos</span>
+    <span><span class="swatch" style="background:#0E7C6144;border:1px solid #0E7C61;"></span>Finn Callaghan</span>
+    <span><span class="swatch" style="background:#6B4EAE44;border:1px solid #6B4EAE;"></span>Harry Sheezel</span>
+    <span><span class="swatch" style="background:#B8660A44;border:1px solid #B8660A;"></span>Jason Horne-Francis</span>
+  </div>
+  <div style="position:relative;width:100%;height:200px;"><canvas id="m4"></canvas></div>
+  <p class="insight">At 11.6 metres per disposal in 2025, Ashcroft generates the least forward penetration of the peer group. Callaghan generates 20.1 metres and Daicos 16.8. His disposals tend to be shorter and more lateral, which limits how much damage he does per touch.</p>
+</div>
+
+<div class="footer"><span>Visual: Darragh Murray</span><span>Source: fitzRoy</span></div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+<script>
+const FONT="'Inter',Arial,sans-serif";
+const players=['Will Ashcroft','Nick Daicos','Finn Callaghan','Harry Sheezel','Jason Horne-Francis'];
+const seasons=[2023,2024,2025,2026];
+const COLORS={'Will Ashcroft':'#D85A30','Nick Daicos':'#1A6FBF','Finn Callaghan':'#0E7C61','Harry Sheezel':'#6B4EAE','Jason Horne-Francis':'#B8660A'};
+const data={
+  contested_pct:{'Will Ashcroft':[36.5,29.8,37.3,37.3],'Nick Daicos':[27.2,43.4,34.7,22.7],'Finn Callaghan':[22.6,35.9,30.4,20.4],'Harry Sheezel':[25.3,32.9,29.1,30.0],'Jason Horne-Francis':[51.7,47.5,39.5,36.8]},
+  clearances:{'Will Ashcroft':[3.5,2.7,5.5,6.0],'Nick Daicos':[3.6,7.3,6.2,4.7],'Finn Callaghan':[1.2,3.6,5.0,3.3],'Harry Sheezel':[1.5,3.4,3.4,6.5],'Jason Horne-Francis':[4.9,5.7,4.4,2.5]},
+  score_inv_pct:{'Will Ashcroft':[22.1,24.2,23.0,15.7],'Nick Daicos':[21.6,23.9,26.1,23.6],'Finn Callaghan':[24.7,23.3,24.8,16.1],'Harry Sheezel':[16.3,17.2,18.0,17.1],'Jason Horne-Francis':[30.1,33.7,28.2,36.8]},
+  metres_per_disp:{'Will Ashcroft':[11.7,13.4,11.6,10.9],'Nick Daicos':[14.8,15.9,16.8,21.9],'Finn Callaghan':[18.2,14.7,20.1,19.0],'Harry Sheezel':[16.1,14.2,12.1,15.1],'Jason Horne-Francis':[15.5,16.9,17.0,15.2]}
+};
+const ashcroftLabelPlugin={id:'al',afterDatasetsDraw(chart){
+  const{ctx}=chart;
+  const willIdx=chart.data.datasets.findIndex(d=>d.label==='Will Ashcroft');
+  if(willIdx<0)return;
+  chart.getDatasetMeta(willIdx).data.forEach((bar,i)=>{
+    const val=chart.data.datasets[willIdx].data[i];
+    if(val==null)return;
+    ctx.save();ctx.font=`500 11px ${FONT}`;ctx.fillStyle='#993C1D';
+    ctx.textAlign='center';ctx.textBaseline='bottom';
+    ctx.fillText(val.toFixed(1),bar.x,bar.y-3);ctx.restore();
+  });
+}};
+function makeChart(id,metric,yLabel){
+  new Chart(document.getElementById(id),{type:'bar',plugins:[ashcroftLabelPlugin],
+    data:{labels:seasons,datasets:players.map(p=>{
+      const isWill=p==='Will Ashcroft';
+      return{label:p,data:data[metric][p],backgroundColor:isWill?COLORS[p]:COLORS[p]+'44',borderColor:COLORS[p],borderWidth:isWill?2:1,borderRadius:0,borderSkipped:false};
+    })},
+    options:{responsive:true,maintainAspectRatio:false,layout:{padding:{top:16}},
+      plugins:{legend:{display:false},tooltip:{callbacks:{label:ctx=>` ${ctx.dataset.label}: ${ctx.parsed.y?.toFixed(1)??'n/a'}`}}},
+      scales:{x:{grid:{display:false},ticks:{color:'#888780',font:{size:11,family:FONT}}},
+        y:{title:{display:true,text:yLabel,color:'#888780',font:{size:10,family:FONT}},grid:{color:'rgba(136,135,128,0.15)'},ticks:{color:'#888780',font:{size:11,family:FONT}},min:0}}}});
+}
+makeChart('m1','contested_pct','% Contested');
+makeChart('m2','clearances','Clearances per Game');
+makeChart('m3','score_inv_pct','Score Inv per Disposal (%)');
+makeChart('m4','metres_per_disp','Metres per Disposal');
+</script>
+</body>
+</html>

@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ashcroft: Generation Scatter</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Inter', Arial, sans-serif; padding: 24px; max-width: 800px; margin: 0 auto; background: #fff; color: #1a1a1a; }
+  .footer { font-size: 10px; color: #B4B2A9; display: flex; justify-content: space-between; margin-top: 8px; }
+  .legend { display: flex; gap: 16px; margin-bottom: 12px; font-size: 12px; color: #666; }
+  .legend span { display: flex; align-items: center; gap: 4px; }
+  .swatch { width: 10px; height: 10px; border-radius: 50%; display: inline-block; }
+</style>
+</head>
+<body>
+<p style="font-size:20px;font-weight:700;margin:1rem 0 4px;">Near the top of his generation but Daicos and Callaghan remain ahead</p>
+<p style="font-size:13px;color:#666;margin:0 0 12px;">Average player rating vs age, midfielders 22 and under, 2025 regular season</p>
+<div class="legend">
+  <span><span class="swatch" style="background:#B5D4F4;border:1px solid #378ADD;"></span>Other Midfielders</span>
+  <span><span class="swatch" style="background:#D85A30;border:1px solid #993C1D;"></span>Will Ashcroft</span>
+</div>
+<div style="position:relative;width:100%;height:400px;"><canvas id="c"></canvas></div>
+<div class="footer"><span>Visual: Darragh Murray</span><span>Source: fitzRoy</span></div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+<script>
+const FONT="'Inter',Arial,sans-serif";
+const others=[{x:18,y:6.47,name:"Levi Ashcroft"},{x:18.1,y:4.89,name:"Christian Moraes"},{x:18.3,y:8.79,name:"Sam Lalor"},{x:18.5,y:6.67,name:"Hugh Boxshall"},{x:18.7,y:4.03,name:"Luke Trainor"},{x:18.8,y:9.91,name:"Harvey Langford"},{x:19.6,y:8.08,name:"Clay Hall"},{x:19.6,y:6.71,name:"Caleb Windsor"},{x:19.7,y:8.92,name:"Harley Reid"},{x:19.7,y:9.23,name:"Colby McKercher"},{x:19.8,y:7.48,name:"Cooper Lord"},{x:19.8,y:9.1,name:"Daniel Curtin"},{x:19.8,y:3.31,name:"Luamon Lual"},{x:20.6,y:11.05,name:"Josh Weddle"},{x:20.6,y:10.29,name:"George Wardlaw"},{x:20.6,y:7.62,name:"Elijah Hewett"},{x:20.6,y:6.1,name:"Edward Allan"},{x:20.8,y:5.41,name:"Tyrell Dewar"},{x:20.9,y:7.89,name:"Cam Mackenzie"},{x:20.9,y:10.31,name:"Jaspa Fletcher"},{x:21,y:7.57,name:"Oliver Hollands"},{x:21.1,y:6.36,name:"Neil Erasmus"},{x:21.2,y:9.79,name:"Angus Sheldrick"},{x:21.4,y:10.72,name:"Josh Ward"},{x:21.5,y:11.31,name:"Jason Horne-Francis"},{x:21.5,y:8.13,name:"Jase Burgoyne"},{x:21.6,y:8.85,name:"Marcus Windhager"},{x:21.7,y:14.63,name:"Finn Callaghan"},{x:21.8,y:8.85,name:"Matthew Johnson"},{x:21.9,y:10.25,name:"Ned Long"},{x:21.9,y:11.59,name:"Jake Soligo"},{x:22,y:3.62,name:"Harry Sharp"},{x:22,y:15.49,name:"Nick Daicos"},{x:22,y:11.15,name:"Oliver Dempsey"}];
+const will={x:20.7,y:11.7,name:"Will Ashcroft"};
+const GREY='#5F5E5A';
+const labelPlugin={id:'lp',afterDraw(chart){
+  const{ctx,scales:{x,y}}=chart;
+  ctx.save();ctx.font=`11px ${FONT}`;ctx.textBaseline='middle';
+  const labelled=[
+    {x:20.7,y:11.7,name:"Will Ashcroft",color:'#993C1D',ax:-12,ay:-14,align:'right'},
+    {x:22,y:15.49,name:"Nick Daicos",color:GREY,ax:8,ay:0,align:'left'},
+    {x:21.7,y:14.63,name:"Finn Callaghan",color:GREY,ax:-12,ay:-14,align:'right'},
+    {x:18.8,y:9.91,name:"Harvey Langford",color:GREY,ax:-12,ay:0,align:'right'},
+    {x:19.8,y:3.31,name:"Luamon Lual",color:GREY,ax:8,ay:0,align:'left'},
+    {x:18.7,y:4.03,name:"Luke Trainor",color:GREY,ax:-12,ay:0,align:'right'},
+    {x:22,y:3.62,name:"Harry Sharp",color:GREY,ax:-12,ay:-14,align:'right'},
+    {x:20.6,y:10.29,name:"George Wardlaw",color:GREY,ax:-12,ay:0,align:'right'},
+  ];
+  const placed=[];const LINE_H=13;
+  labelled.forEach(p=>{
+    const px=x.getPixelForValue(p.x),py=y.getPixelForValue(p.y);
+    const lx=px+p.ax,ly=py+p.ay;
+    const w=ctx.measureText(p.name).width;
+    const left=p.align==='right'?lx-w:lx,right=left+w;
+    const top=ly-LINE_H/2,bottom=ly+LINE_H/2;
+    const overlaps=placed.some(r=>!(right<r.left||left>r.right||bottom<r.top||top>r.bottom));
+    if(!overlaps){placed.push({left,right,top,bottom});ctx.fillStyle=p.color;ctx.textAlign=p.align;ctx.fillText(p.name,lx,ly);}
+  });
+  ctx.restore();
+}};
+new Chart(document.getElementById('c'),{type:'scatter',plugins:[labelPlugin],
+  data:{datasets:[
+    {label:'Others',data:others,backgroundColor:'rgba(181,212,244,0.75)',borderColor:'#378ADD',borderWidth:1,pointRadius:6,pointHoverRadius:8},
+    {label:'Will Ashcroft',data:[will],backgroundColor:'#D85A30',borderColor:'#993C1D',borderWidth:1.5,pointRadius:9,pointHoverRadius:11}
+  ]},
+  options:{responsive:true,maintainAspectRatio:false,
+    plugins:{legend:{display:false},tooltip:{callbacks:{title:ctx=>ctx[0].raw.name,label:ctx=>[`Age: ${ctx.parsed.x.toFixed(1)}`,`Avg Rating: ${ctx.parsed.y.toFixed(2)}`]}}},
+    scales:{
+      x:{title:{display:true,text:'Age at Start of 2025 Season',color:'#888780',font:{size:11,family:FONT}},grid:{color:'rgba(136,135,128,0.15)'},ticks:{color:'#888780',font:{size:11,family:FONT}},min:17.5,max:22.8},
+      y:{title:{display:true,text:'Avg Player Rating',color:'#888780',font:{size:11,family:FONT}},grid:{color:'rgba(136,135,128,0.15)'},ticks:{color:'#888780',font:{size:11,family:FONT}},min:0,max:18}
+    }}});
+</script>
+</body>
+</html>

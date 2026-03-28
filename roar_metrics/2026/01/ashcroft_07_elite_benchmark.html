@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ashcroft: Elite Benchmark</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Inter', Arial, sans-serif; padding: 24px; max-width: 800px; margin: 0 auto; background: #fff; color: #1a1a1a; }
+  .footer { font-size: 10px; color: #B4B2A9; display: flex; justify-content: space-between; margin-top: 8px; }
+  .legend { display: flex; flex-wrap: wrap; gap: 16px; margin-bottom: 8px; font-size: 12px; color: #666; }
+  .legend span { display: flex; align-items: center; gap: 4px; }
+  .swatch { width: 10px; height: 10px; display: inline-block; }
+</style>
+</head>
+<body>
+<p style="font-size:20px;font-weight:700;margin:1rem 0 4px;">Ashcroft gets the ball. Elite AFL midfielders do more with it.</p>
+<p style="font-size:13px;color:#666;margin:0 0 4px;">Ashcroft's metrics as % of top 11 midfielder average, 2025 regular season (100 = elite level)</p>
+<div class="legend">
+  <span><span class="swatch" style="background:#0E7C61;"></span>Meets or exceeds elite</span>
+  <span><span class="swatch" style="background:#B5D4F4;"></span>Below elite</span>
+</div>
+<p style="font-size:12px;color:#666;margin:0 0 16px;">Elite group: Anderson, Green, Rowell, Heeney, Butters, Serong, Callaghan, Brayshaw, McCluggage, Miller, Daicos</p>
+<div style="position:relative;width:100%;height:340px;"><canvas id="c"></canvas></div>
+<div class="footer"><span>Visual: Darragh Murray</span><span>Source: fitzRoy</span></div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+<script>
+const FONT="'Inter',Arial,sans-serif";
+const metrics=['Player Rating','Contested %','Clearances','Disposal Efficiency','Score Involvements','Score Inv / Disposal','Metres / Disposal','Inside 50s'];
+const will=  [11.7, 37.3, 5.5, 71.5, 6.2, 23.0, 11.6, 4.0];
+const elite= [16.12,44.3, 6.5, 70.0, 7.0, 25.5, 16.1, 5.2];
+const indexed=will.map((v,i)=>parseFloat((v/elite[i]*100).toFixed(1)));
+const barColors=metrics.map(m=>m==='Disposal Efficiency'?'#0E7C61CC':'#B5D4F4CC');
+const borderColors=metrics.map(m=>m==='Disposal Efficiency'?'#0B6350':'#378ADD');
+const eliteLinePlugin={id:'el',afterDatasetsDraw(chart){
+  const{ctx,chartArea:{top,bottom},scales:{x}}=chart;
+  const xPos=x.getPixelForValue(100);
+  ctx.save();
+  ctx.strokeStyle='#D85A30';ctx.lineWidth=1.5;ctx.setLineDash([6,4]);
+  ctx.beginPath();ctx.moveTo(xPos,top);ctx.lineTo(xPos,bottom);ctx.stroke();
+  ctx.setLineDash([]);
+  ctx.fillStyle='#D85A30';ctx.font=`500 11px ${FONT}`;
+  ctx.textAlign='center';ctx.textBaseline='top';
+  ctx.fillText('Elite avg',xPos,top+2);
+  ctx.restore();
+}};
+new Chart(document.getElementById('c'),{type:'bar',plugins:[eliteLinePlugin],
+  data:{labels:metrics,datasets:[{label:'Ashcroft vs elite avg',data:indexed,backgroundColor:barColors,borderColor:borderColors,borderWidth:1.5,borderRadius:0,borderSkipped:false}]},
+  options:{indexAxis:'y',responsive:true,maintainAspectRatio:false,
+    plugins:{legend:{display:false},tooltip:{callbacks:{label:ctx=>{const i=ctx.dataIndex;return[` Ashcroft: ${will[i].toFixed(1)}`,` Elite avg: ${elite[i].toFixed(1)}`,` Index: ${ctx.parsed.x.toFixed(0)}%`];}}}},
+    scales:{
+      y:{grid:{display:false},ticks:{color:'#888780',font:{size:11,family:FONT}}},
+      x:{title:{display:true,text:'% of Elite Average',color:'#888780',font:{size:11,family:FONT}},grid:{color:'rgba(136,135,128,0.15)'},ticks:{color:'#888780',font:{size:11,family:FONT},callback:v=>`${v}%`},min:0,max:130}
+    }}});
+</script>
+</body>
+</html>
